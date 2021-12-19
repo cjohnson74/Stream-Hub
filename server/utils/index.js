@@ -29,3 +29,9 @@ const authMiddleware = ({req}) => {
     return req;
 }
 
+const signToken = ({ email, streamername, _id }) => {
+    const payload = { email, streamername, _id };
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+}
+
+module.exports = { authMiddleware, signToken }
