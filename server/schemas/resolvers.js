@@ -19,6 +19,10 @@ const typeDefs = gql`
     type Query {
         streamer(_id: String): Streamer
     }
+
+    type Mutation {
+        newStreamer(streamername: String!, password: String!, email: String!, firstName: String!, lastName: String!, image: String): Auth
+    }
 `;
 
 module.exports = typeDefs;
