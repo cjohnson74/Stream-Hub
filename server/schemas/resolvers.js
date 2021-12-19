@@ -59,21 +59,53 @@ const resolvers = {
             const token = signToken(streamer);
             return { token, streamer };
         },
-
-        createComment: async (parent, args, context) => {
+        createVideo: async (parent, args, context) => {
             if (!context.streamer) {
                 throw new AuthenticationError('You need to be logged in to chat (create a comment).');
             }
 
-            const createComment = async () => {
-                const comment = await Comment.create({ ...args, author: context.user._id });
-                let streamerDocument = await Streamer.findOne({ _id: context.user._id });
-                streamerDocument.createdComments.push(comment._id);
-                await streamerDocument.save();
-                return comment;
+            const createVideo = async () => {
+                const video = await Video.create({ ...args });
+                let streamingServiceDocument = await StreamingService.findOne({ _id: args.streamingService._id });
+                streamingServiceDocument.createdVideo.push(video._id);
+                await streamingServiceDocument.save();
+                return video;
             };
 
-            return await createComment();
-        }
+            return await createVideo();
+        },
+        addComment: async (parent, args, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('You need to be logged in to chat about a video.');
+            }
+
+            let newComment = {
+                author: context.user._id,
+                body: args.body
+            }
+
+            let video = await Video.findById(args.videoId);
+
+            video.comments.push(newComment);
+
+            await video.save();
+
+            return video;
+        },
+        addWatcher: async (parent, args, context) => {
+            if (!context.streamer) {
+                throw new AuthenticationError('You need to be logged in to view a video.');
+            }
+            let video = await Video.findById(args.videoId)
+            video.likes++
+            await video.save()
+            let streamer = await Streamer.findById(context.streamer._id);
+            streamer.watched.push(args.videoId);
+            await streamer.save();
+
+            return streamer;
+        },
     }
-}
+};
+
+module.exports = resolvers;
