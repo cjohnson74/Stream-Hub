@@ -15,6 +15,10 @@ const typeDefs = gql`
         title: String
         body: String!
     }
+
+    type Query {
+        streamer(_id: String): Streamer
+    }
 `;
 
 module.exports = typeDefs;
