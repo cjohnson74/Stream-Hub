@@ -25,6 +25,8 @@ const typeDefs = gql`
         _id: ID
         title: String
         description: String
+        watchers: Int
+        length: Float
         source: String
         image: String
         comments: [Comment]
@@ -33,6 +35,8 @@ const typeDefs = gql`
 
     input VideoContent {
         title: String
+        watchers: Int
+        length: Float!
         description: String
         source: String
         image: String
