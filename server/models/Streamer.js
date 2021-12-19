@@ -44,3 +44,11 @@ StreamerSchema.pre('save', function(next) {
         next()
     }
 });
+
+StreamerSchema.methods.isCorrectPassword = async function (password) {
+    return bcrypt.compare(password, this.password);
+};
+
+const Streamer = mongoose.model('User', UserSchema);
+
+module.exports = Streamer;
