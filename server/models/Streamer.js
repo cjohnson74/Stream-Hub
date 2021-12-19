@@ -31,6 +31,18 @@ const StreamerSchema = new Schema(
             type: String,
             default: 'https://pngset.com/images/red-play-button-sphere-purple-triangle-balloon-transparent-png-1586266.png'
         },
+        watchedVideos: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Video'
+            }
+        ],
+        watched: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Video'
+            }
+        ],
     },
     {
         timestamps: true,
