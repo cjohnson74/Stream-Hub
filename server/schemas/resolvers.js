@@ -22,6 +22,7 @@ const typeDefs = gql`
 
     type Mutation {
         newStreamer(streamername: String!, password: String!, email: String!, firstName: String!, lastName: String!, image: String): Auth
+        login(streamername: String!, password: String!): Auth
     }
 `;
 
