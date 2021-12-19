@@ -10,6 +10,11 @@ const typeDefs = gql`
         image: String
     }
 
+    type Auth {
+        token: ID!
+        streamer: Streamer
+    }
+
     type Comment {
         author: Streamer
         title: String
