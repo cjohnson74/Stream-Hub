@@ -15,3 +15,7 @@ const server = new ApolloServer(
         context: authMiddleware
     }
 )
+
+const app = express()
+const PORT = process.env.PORT || 3001;
+
