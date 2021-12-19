@@ -31,6 +31,13 @@ const typeDefs = gql`
         streamingService: StreamingService
     }
 
+    input VideoContent {
+        title: String
+        description: String
+        source: String
+        image: String
+    }
+
     type Query {
         streamer(_id: String): Streamer
         video(_id: ID): Video
@@ -44,6 +51,7 @@ const typeDefs = gql`
         newStreamer(streamername: String!, password: String!, email: String!, firstName: String!, lastName: String!, image: String): Auth
         login(streamername: String!, password: String!): Auth
         addComment(body: String!, videoId: ID!): Video
+        addWatcher(videoId: ID!): Streamer
     }
 `;
 
